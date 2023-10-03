@@ -71,16 +71,19 @@ export default function CartPage() {
     const [streetAddress, setStreetAddress] = useState('')
     const [country, setCountry] = useState('')
     const [isSuccess, setIsSuccess] = useState(false)
+
+    const apiBaseUrl = typeof window !== 'undefined' ? 'http://10.89.96.33:3001' : ''
+    // const apiBaseUrl = `${window.location.protocol}//${window.location.hostname}:4000`
     
     useEffect(() => {
         if (cartProducts.length > 0) {
-            axios.post('/api/cart', {ids: cartProducts}).then(response => {
+            axios.post(`${apiBaseUrl}/api/cart`, {ids: cartProducts}).then(response => {
                 setProducts(response.data)
             })
         } else {
             setProducts([])
         }
-    }, [cartProducts]) 
+    }, [cartProducts, apiBaseUrl]) 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.location.href.includes('success')) {
             setIsSuccess(true)
@@ -94,8 +97,11 @@ export default function CartPage() {
         removeProduct(id)
     }
     async function goToPayment() {
-        const response = await axios.post('/api/checkout', {
-            name, email, city, postalCode, streetAddress, country, cartProducts})
+        const currentBaseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+        const successUrl = `${currentBaseUrl}/cart?success=1`
+        const cancelUrl = `${currentBaseUrl}/cart?canceled=1`
+        const response = await axios.post(`${apiBaseUrl}/api/checkout`, {
+            name, email, city, postalCode, streetAddress, country, cartProducts, successUrl, cancelUrl})
         if (response.data.url) {
             window.location = response.data.url
         }

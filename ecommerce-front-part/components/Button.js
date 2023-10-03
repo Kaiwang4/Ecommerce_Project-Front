@@ -59,8 +59,8 @@ const StyledButton = styled.button`
     ${ButtonStyle}
 `
 
-export default function Button({children, ...rest}) {
+export default function Button({children, outline, ...rest}) {
     return (
-        <StyledButton {...rest}>{children}</StyledButton> 
+        <StyledButton {...rest} outline={outline ? 1 : 0}>{children}</StyledButton> 
     )
 }

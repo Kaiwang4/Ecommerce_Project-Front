@@ -13,6 +13,7 @@ export default async function hander(req, res) {
     const productsIds = cartProducts
     const uniqueIds = [...new Set(productsIds)]
     const productsInfos = await Product.find({_id: uniqueIds})
+    const { successUrl, cancelUrl } = req.body
 
     let line_items = []
     for (const productId of uniqueIds) {
@@ -38,8 +39,8 @@ export default async function hander(req, res) {
         line_items,
         mode: 'payment',
         customer_email: email,
-        success_url: process.env.PUBLIC_URL + '/cart?success=1',
-        cancel_url: process.env.PUBLIC_URL + '/cart?canceled=1',
+        success_url: successUrl,
+        cancel_url: cancelUrl,
         metadata: {orderId: orderDoc._id.toString()},
     })
 

@@ -20,11 +20,7 @@ const Wrapper = styled.div`
     padding: 20px 0;
 `
 const StyledNav = styled.nav`
-    ${props => props.mobileNavActive ? `
-        display: block;
-    ` : `
-        display: none;
-    `}
+    display: ${props => props.mobilenavactive ? 'block' : 'none'};
     gap: 15px;
     position: fixed;
     top: 0;
@@ -63,20 +59,20 @@ const NavButton = styled.button`
 `
 export default function Header() {
     const {cartProducts} = useContext(CartContext)
-    const [mobileNavActive, setMobileNavActive] = useState(false)
+    const [mobilenavactive, setMobilenavactive] = useState(false)
     return (
         <StyledHeader>
             <Center>
                 <Wrapper>
                     <Logo href={'/'}>Ecommerce</Logo>
-                    <StyledNav mobileNavActive={mobileNavActive}>
+                    <StyledNav mobilenavactive={mobilenavactive}>
                         <NavLink href={'/'}>Home</NavLink>
                         <NavLink href={'/products'}>All products</NavLink>
                         <NavLink href={'/categories'}>Catogories</NavLink>
                         <NavLink href={'/account'}>Account</NavLink>
                         <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>
                     </StyledNav>
-                    <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
+                    <NavButton onClick={() => setMobilenavactive(prev => !prev)}>
                         <BarsIcon />
                     </NavButton>
                 </Wrapper>
