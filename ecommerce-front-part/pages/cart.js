@@ -72,8 +72,8 @@ export default function CartPage() {
     const [country, setCountry] = useState('')
     const [isSuccess, setIsSuccess] = useState(false)
 
-    const apiBaseUrl = typeof window !== 'undefined' ? 'http://10.89.96.33:3001' : ''
-    // const apiBaseUrl = `${window.location.protocol}//${window.location.hostname}:4000`
+    // const apiBaseUrl = typeof window !== 'undefined' ? 'http://10.89.96.33:3000' : ''
+    const apiBaseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:3000` : ''
     
     useEffect(() => {
         if (cartProducts.length > 0) {
@@ -208,7 +208,7 @@ export default function CartPage() {
                             value={country} 
                             name="country"
                             onChange={e => setCountry(e.target.value)}/>
-                        <Button black block onClick={goToPayment}>Continue to payment</Button>
+                        <Button black={1} block={1} onClick={goToPayment}>Continue to payment</Button>
                     </Box>
                     )}
                 </ColumnsWrapper>
