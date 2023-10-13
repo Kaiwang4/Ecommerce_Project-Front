@@ -4,6 +4,7 @@ import Center from "./Center";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import BarsIcon from "./icons/Bars";
+import SearchIcon from "./icons/SearchIcon";
 
 const StyledHeader = styled.header`
     background-color: #222;
@@ -42,6 +43,7 @@ const NavLink = styled(Link)`
     display: block;
     color: #aaa;
     text-decoration: none;
+    min-width: 24px;
     padding: 10px 0;
     @media screen and (min-width: 768px) {
         padding: 0;
@@ -60,6 +62,20 @@ const NavButton = styled.button`
         display: none;
     }
 `
+const SideIcons = styled.div`
+    display: flex;
+    align-items: center;
+    a{
+        display: inline-block;
+        min-width: 20px;
+        color: white;
+        svg{
+            padding-top: 4px;
+            width: 20px;
+            height: 20px;
+        }
+    }
+`
 export default function Header() {
     const {cartProducts} = useContext(CartContext)
     const [mobilenavactive, setMobilenavactive] = useState(false)
@@ -73,11 +89,16 @@ export default function Header() {
                         <NavLink href={'/products'}>All products</NavLink>
                         <NavLink href={'/categories'}>Catogories</NavLink>
                         <NavLink href={'/account'}>Account</NavLink>
-                        <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>
+                        <NavLink href={'/cart'} id="cart-icon">Cart ({cartProducts.length})</NavLink>
                     </StyledNav>
-                    <NavButton onClick={() => setMobilenavactive(prev => !prev)}>
-                        <BarsIcon />
-                    </NavButton>
+                    <SideIcons>
+                        <Link href={'/search'}>
+                            <SearchIcon />
+                        </Link>
+                        <NavButton onClick={() => setMobilenavactive(prev => !prev)}>
+                            <BarsIcon />
+                        </NavButton>
+                    </SideIcons> 
                 </Wrapper>
             </Center>
         </StyledHeader>

@@ -52,6 +52,7 @@ const ColumnsWrapper = styled.div`
 const Column = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
 `
 const ButtonsWrapper = styled.div`
     display: flex;
@@ -70,7 +71,7 @@ export default function Featured({product}) {
                                 <Desc>{product.description}</Desc>
                                 <ButtonsWrapper>
                                     <ButtonLink href={'/product/'+product._id} outline={1} white={1}>Read more</ButtonLink>
-                                    <FlyingButton white={1} _id={product._id} src={product.images?.[0]}>
+                                    <FlyingButton main={false} white={1} _id={product._id} src={product.images?.[0]}>
                                         <CartIcon />
                                         Add to cart
                                     </FlyingButton>

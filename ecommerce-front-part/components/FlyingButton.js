@@ -43,7 +43,7 @@ const FlyingButtonWrapper = styled.div`
     }
 `
 
-export default function FlyingButton(props) {
+export default function FlyingButton({ main, ...props}) {
     const {addProduct} = useContext(CartContext)
     const imgRef = useRef()
     function sendImageToCart(e) {
@@ -56,7 +56,7 @@ export default function FlyingButton(props) {
     }
     useEffect(() => {
         const interval = setInterval(() => {
-            const reveal = imgRef.current.closest('div[data-sr-id]')
+            const reveal = imgRef.current?.closest('div[data-sr-id]')
             if (reveal?.style.opacity === '1') {
                 reveal.style.transform = 'none'
             }
@@ -68,7 +68,7 @@ export default function FlyingButton(props) {
         <>
             <FlyingButtonWrapper 
                 white={props.white} 
-                main={props.main} 
+                $main={main ? "true" : "false"} 
                 onClick={() => addProduct(props._id)}
             >
                 <img src={props.src} ref={imgRef} alt=""/>

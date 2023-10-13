@@ -7,11 +7,11 @@ import { Product } from "@/models/Product";
 export default function HomePage({featuredProduct, newProducts}) {
   // console.log({newProducts});
   return (
-    <dev>
+    <div>
       <Header />
       <Featured product={featuredProduct}/>
       <NewProucts products={newProducts} />
-    </dev>
+    </div>
   )
 }
 
