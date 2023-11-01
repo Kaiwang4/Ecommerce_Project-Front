@@ -68,18 +68,31 @@ export default function AccountPage() {
             axios.get('/api/wishlist')
         ]).then(([addressResponse, wishlistResponse]) => {
             // Update Address Infomation
-            const { name, email, city, postalCode, streetAddress, country } = addressResponse.data;
-            setName(name);
-            setEmail(email);
-            setCity(city);
-            setPostalCode(postalCode);
-            setStreetAddress(streetAddress);
-            setCountry(country);
+            if (addressResponse.data) {
+                // Update Address Information
+                const { name, email, city, postalCode, streetAddress, country } = addressResponse.data;
+                setName(name);
+                setEmail(email);
+                setCity(city);
+                setPostalCode(postalCode);
+                setStreetAddress(streetAddress);
+                setCountry(country);
+            } else {
+                setName('');
+                setEmail('');
+                setCity('');
+                setPostalCode('');
+                setStreetAddress('');
+                setCountry('');
+            }
             
             // Update Wishlist Information
             setWishedProducts(wishlistResponse.data.map(wp => wp.product));
     
             // Set Loaded
+            setLoaded(true);
+        }).catch(error => {
+            console.error("Error fetching data: ", error);
             setLoaded(true);
         });
     }, [session])
