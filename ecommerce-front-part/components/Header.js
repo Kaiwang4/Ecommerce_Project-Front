@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import BarsIcon from "./icons/Bars";
 import SearchIcon from "./icons/SearchIcon";
+import { useRouter } from "next/router";
 
 const StyledHeader = styled.header`
     background-color: #222;
@@ -77,19 +78,26 @@ const SideIcons = styled.div`
     }
 `
 export default function Header() {
+    const router = useRouter(); 
     const {cartProducts} = useContext(CartContext)
     const [mobilenavactive, setMobilenavactive] = useState(false)
+    const handleNavLinkClick = (e, href) => {
+        if (router.pathname === href) {
+            e.preventDefault();
+            router.reload();
+        }
+    }
     return (
         <StyledHeader>
             <Center>
                 <Wrapper>
                     <Logo href={'/'}>Ecommerce</Logo>
                     <StyledNav $mobilenavactive={mobilenavactive}>
-                        <NavLink href={'/'}>Home</NavLink>
-                        <NavLink href={'/products'}>All products</NavLink>
-                        <NavLink href={'/categories'}>Catogories</NavLink>
-                        <NavLink href={'/account'}>Account</NavLink>
-                        <NavLink href={'/cart'} id="cart-icon">Cart ({cartProducts.length})</NavLink>
+                        <NavLink href={'/'} onClick={(e) => handleNavLinkClick(e, '/')}>Home</NavLink>
+                        <NavLink href={'/products'} onClick={(e) => handleNavLinkClick(e, '/products')}>All products</NavLink>
+                        <NavLink href={'/categories'} onClick={(e) => handleNavLinkClick(e, '/categories')}>Catogories</NavLink>
+                        <NavLink href={'/account'} onClick={(e) => handleNavLinkClick(e, '/account')}>Account</NavLink>
+                        <NavLink href={'/cart'} id="cart-icon" onClick={(e) => handleNavLinkClick(e, '/cart')}>Cart ({cartProducts.length})</NavLink>
                     </StyledNav>
                     <SideIcons>
                         <Link href={'/search'}>
