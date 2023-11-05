@@ -36,9 +36,14 @@ const WishedProductsGrid = styled.div`
 `
 export default function AccountPage() {
     const { data: session } = useSession()
-    const BASE_URL = process.env.NODE_ENV === 'development' 
-                        ? process.env.DEV_PUBLIC_BASE_URL 
-                        : process.env.PROD_PUBLIC_BASE_URL
+    // const BASE_URL = process.env.NODE_ENV === 'development' 
+    //                     ? process.env.DEV_PUBLIC_BASE_URL 
+    //                     : process.env.PROD_PUBLIC_BASE_URL
+    // // const BASE_URL = process.env.NODE_ENV
+    // console.log(process.env.NODE_ENV)
+    // console.log(process.env.DEV_PUBLIC_BASE_URL);
+    // console.log(process.env.PROD_PUBLIC_BASE_URL);
+    console.log("----???-------", process.env.NEXT_PUBLIC_BASE_URL);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [city, setCity] = useState('')
@@ -52,7 +57,7 @@ export default function AccountPage() {
 
     async function logOut() {
         await signOut({
-            callbackUrl: BASE_URL,
+            // callbackUrl: process.env.NEXT_PUBLIC_BASE_URL,
         })
     }
     async function login() {
@@ -126,18 +131,14 @@ export default function AccountPage() {
                                         )}
                                         {loaded && (
                                             <div>
-                                                {orders.length === 0 && (
-                                                    <>
-                                                        {session && (
-                                                            <p>Your order is empty</p>
-                                                        )}
-                                                        {!session && (
-                                                            <p>Login to see your orders</p>
-                                                        )}
-                                                    </>
+                                                {!session && (
+                                                    <p>Login to see your orders</p>
                                                 )}
-                                                {orders.length > 0 && orders.map(o => (
-                                                    <SingleOrder {...o} />
+                                                {session && orders.length === 0 && (
+                                                    <p>Your order is empty</p>   
+                                                )}
+                                                {session && orders.length > 0 && orders.map(order => (
+                                                    <SingleOrder key={order._id} {...order} />
                                                 ))}
                                             </div>
                                         )}
