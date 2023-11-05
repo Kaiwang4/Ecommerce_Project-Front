@@ -72,7 +72,7 @@ const WishlistButton = styled.button`
     right: 0;
     background: transparent;
     cursor: pointer;
-    ${props => props.wished ? `
+    ${props => props.$wished ? `
         color: red;
     ` : `
         color: black;   
@@ -104,7 +104,7 @@ export default function ProductBox({
         <ProductWrapper>
             <WhiteBox href={url}>
                 <div>
-                    <WishlistButton wished={isWished} onClick={addToWishlist}>
+                    <WishlistButton $wished={isWished} onClick={addToWishlist}>
                         {isWished ? <HeartSolidIcon /> : <HeartOutlineIcon />}
                     </WishlistButton>
                     <img src={images?.[0]} alt=""/>
