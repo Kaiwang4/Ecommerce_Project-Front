@@ -41,7 +41,7 @@ const ColumnsWrapper = styled.div`
     }
     @media screen and (min-width: 768px) {
         grid-template-columns: 1.1fr .9fr;
-        div:nth-child(1) {
+        & > div:nth-child(1) {
             order: 0;
         }
         img{
@@ -59,6 +59,8 @@ const ButtonsWrapper = styled.div`
     gap: 10px;
     margin-top: 25px;
 `
+const ContentWrapper = styled.div`
+`
 export default function Featured({product}) {
     return (
         <Bg>
@@ -67,21 +69,23 @@ export default function Featured({product}) {
                     <Column>
                         <div>
                             <RevealWrapper origin={'left'} delay={0}>
-                                <Title>{product.title}</Title>
-                                <Desc>{product.description}</Desc>
-                                <ButtonsWrapper>
-                                    <ButtonLink href={'/product/'+product._id} outline={1} white={1}>Read more</ButtonLink>
-                                    <FlyingButton main={false} white={1} _id={product._id} src={product.images?.[0]}>
-                                        <CartIcon />
-                                        Add to cart
-                                    </FlyingButton>
-                                </ButtonsWrapper> 
+                                <ContentWrapper>
+                                    <Title>{product.title}</Title>
+                                    <Desc>{product.description}</Desc>
+                                    <ButtonsWrapper>
+                                        <ButtonLink href={'/product/'+product._id} outline={1} white={1}>Read more</ButtonLink>
+                                        <FlyingButton main={false} white={1} _id={product._id} src={product.images?.[0]}>
+                                            <CartIcon />
+                                            Add to cart
+                                        </FlyingButton>
+                                    </ButtonsWrapper> 
+                                </ContentWrapper>                               
                             </RevealWrapper>                               
                         </div>
                     </Column>
                     <Column>
                         <RevealWrapper delay={0}>
-                            <img className={'main'} src="http://kai-next-ecommerce.s3.amazonaws.com/1695874136566.jpg"/>
+                            <img className={'main'} src={product.images?.[0]} />
                         </RevealWrapper>                       
                     </Column>
                 </ColumnsWrapper>      

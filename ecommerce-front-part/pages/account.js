@@ -36,13 +36,6 @@ const WishedProductsGrid = styled.div`
 `
 export default function AccountPage() {
     const { data: session } = useSession()
-    // const BASE_URL = process.env.NODE_ENV === 'development' 
-    //                     ? process.env.DEV_PUBLIC_BASE_URL 
-    //                     : process.env.PROD_PUBLIC_BASE_URL
-    // // const BASE_URL = process.env.NODE_ENV
-    // console.log(process.env.NODE_ENV)
-    // console.log(process.env.DEV_PUBLIC_BASE_URL);
-    // console.log(process.env.PROD_PUBLIC_BASE_URL);
     console.log("----???-------", process.env.NEXT_PUBLIC_BASE_URL);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')

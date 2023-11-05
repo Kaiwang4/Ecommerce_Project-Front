@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . .
 
 # 安装项目依赖
-RUN npm install -force
+RUN npm install --force
 
 # 暴露应用程序运行的端口
 EXPOSE 3000
 
 # 启动应用程序
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "port"]
