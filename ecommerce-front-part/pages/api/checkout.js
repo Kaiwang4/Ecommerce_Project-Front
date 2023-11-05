@@ -40,7 +40,9 @@ export default async function hander(req, res) {
         line_items, name, email, city, postalCode, streetAddress, country, paid: false, userEmail: session?.user?.email
     })
 
-    const shippingFeeSetting = await Setting.findOne({name: 'shippingFee'})
+    // const shippingFeeSetting = await Setting.findOne({name: 'shippingFee'})
+    const shippingFeeSetting = await Setting.findOne()
+
     const shippingFeeCents = parseInt(shippingFeeSetting.value || '0') * 100
 
     const stripeSession = await stripe.checkout.sessions.create({

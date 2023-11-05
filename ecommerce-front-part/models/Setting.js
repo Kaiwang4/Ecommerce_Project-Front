@@ -5,4 +5,5 @@ const settingSchema = new Schema({
     value: {type: Object}
 }, {timestamps: true})
 
+
 export const Setting = models?.Setting || model('Setting', settingSchema)
