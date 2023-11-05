@@ -41,7 +41,7 @@ export default async function hander(req, res) {
     })
 
     // const shippingFeeSetting = await Setting.findOne({name: 'shippingFee'})
-    const shippingFeeSetting = await Setting.findOne()
+    const shippingFeeSetting = await Setting.where({name:'shippingFee'}).findOne()
 
     const shippingFeeCents = parseInt(shippingFeeSetting.value || '0') * 100
 

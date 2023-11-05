@@ -20,11 +20,12 @@ export default function HomePage({featuredProduct, newProducts, wishedNewProduct
 }
 
 export async function getServerSideProps(ctx) {
-  // const featuredProductSetting = await Setting.findOne({name: 'featuredProductId'})
-  const featuredProductSetting = await Setting.findOne()
+  await mongooseConnect()
+  const featuredProductSetting = await Setting.findOne({name: 'featuredProductId'})
+  // const featuredProductSetting = await Setting.where({name:'featuredProductId'}).findOne()
 
   const featuredProductId = featuredProductSetting.value
-  await mongooseConnect()
+  
   const featuredProduct = await Product.findById(featuredProductId)
   const newProducts = await Product.find({}, null, {sort: {'_id': -1}, limit: 10})
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
