@@ -47,12 +47,6 @@ export default function FlyingButton({ main, ...props}) {
     const {addProduct} = useContext(CartContext)
     const imgRef = useRef()
     function sendImageToCart(e) {
-        // imgRef.current.style.display = 'inline-block'
-        // imgRef.current.style.left = (e.clientX - 25) + 'px'
-        // imgRef.current.style.top = (e.clientY - 25) + 'px'
-        // setTimeout(() => {
-        //     imgRef.current.style.display = 'none'
-        // }, 1000)
         if(imgRef.current) {
             imgRef.current.style.display = 'inline-block';
             imgRef.current.style.left = (e.clientX - 25) + 'px';
@@ -81,7 +75,7 @@ export default function FlyingButton({ main, ...props}) {
         <>
             <FlyingButtonWrapper 
                 white={props.white} 
-                $main={main ? "true" : "false"} 
+                main={main} 
                 onClick={() => addProduct(props._id)}
             >
                 <img src={props.src} ref={imgRef} alt=""/>

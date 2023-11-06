@@ -13,6 +13,7 @@ import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
+import { withSwal } from "react-sweetalert2";
 
 const ColsWrapper = styled.div`
     display: grid;
@@ -34,9 +35,9 @@ const WishedProductsGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 40px;
 `
-export default function AccountPage() {
+function AccountPage({swal}) {
     const { data: session } = useSession()
-    console.log("----???-------", process.env.NEXT_PUBLIC_BASE_URL);
+    // console.log("----???-------", process.env.NEXT_PUBLIC_BASE_URL);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [city, setCity] = useState('')
@@ -59,7 +60,18 @@ export default function AccountPage() {
 
     function saveAddress() {
         const data = {name, email, city, streetAddress, postalCode, country}
-        axios.put('/api/address', data)
+        axios.put('/api/address', data).catch(err => {
+            swal.fire({
+                title: 'Error!',
+                text: err.response?.data?.message || 'An error occurred',
+                icon: 'error',
+            });
+        }).finally(() => {
+            swal.fire({
+                title: 'Details save successfully!',
+                icon: 'success',
+            });
+        })
     }
     useEffect(() => {
         if (!session) {
@@ -231,3 +243,7 @@ export default function AccountPage() {
         </>
     )
 }
+
+export default withSwal(({swal}) => (
+    <AccountPage swal={swal} />
+))
